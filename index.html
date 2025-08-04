@@ -3,817 +3,1280 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>بوكر VIP - تصميم جعفر السيد</title>
+    <title>جعفر السيد بوكر | لعبة بوكر احترافية</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --primary: #0a5c36;
+            --secondary: #d4af37;
+            --dark: #0a2e1c;
+            --light: #f8f9fa;
+            --danger: #dc3545;
+            --success: #28a745;
+            --info: #17a2b8;
+            --card-red: #c41e3a;
+            --card-black: #1a1a1a;
+            --felt-green: #0a5c36;
+            --wood: #8B4513;
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Cairo', sans-serif;
         }
 
         body {
-            background: linear-gradient(135deg, #0a1f3a, #0a3d1d);
-            color: #fff;
+            background: linear-gradient(135deg, var(--dark) 0%, var(--primary) 100%);
+            color: var(--light);
             min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-            overflow: hidden;
+            overflow-x: hidden;
         }
 
         .container {
-            width: 100%;
             max-width: 1400px;
             margin: 0 auto;
-            display: grid;
-            grid-template-columns: 250px 1fr 300px;
-            gap: 20px;
-            height: 95vh;
+            padding: 0 15px;
         }
 
-        /* لوحة الغرف */
-        .rooms-panel {
-            background: rgba(0, 0, 0, 0.4);
+        /* تصميم الهيدر */
+        header {
+            background: rgba(10, 46, 28, 0.9);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--secondary);
+        }
+
+        .logo i {
+            color: var(--secondary);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--light);
+            text-decoration: none;
+            font-weight: 600;
+            padding: 8px 15px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            background: var(--primary);
+            color: var(--secondary);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: var(--secondary);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after, .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .user-actions {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+        }
+
+        .user-avatar {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            border: 2px solid var(--secondary);
+            overflow: hidden;
+            background: linear-gradient(45deg, var(--primary), var(--dark));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: var(--light);
+        }
+
+        .user-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .balance {
+            background: rgba(212, 175, 55, 0.2);
+            padding: 8px 15px;
             border-radius: 20px;
-            padding: 20px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .balance i {
+            color: var(--secondary);
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border-radius: 30px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: var(--secondary);
+            color: var(--dark);
+        }
+
+        .btn-primary:hover {
+            background: #c9a227;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--secondary);
+            color: var(--secondary);
+        }
+
+        .btn-outline:hover {
+            background: rgba(212, 175, 55, 0.1);
+        }
+
+        /* تصميم القائمة الرئيسية */
+        .main-menu {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin: 40px 0;
+        }
+
+        .menu-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            cursor: pointer;
+            height: 100%;
             display: flex;
             flex-direction: column;
-            overflow: hidden;
-            border: 2px solid #ffd700;
+            justify-content: space-between;
         }
 
-        .panel-title {
-            text-align: center;
-            font-size: 1.5rem;
+        .menu-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border-color: var(--secondary);
+            background: rgba(10, 46, 28, 0.7);
+        }
+
+        .menu-card i {
+            font-size: 3.5rem;
+            color: var(--secondary);
             margin-bottom: 20px;
-            color: #ffd700;
-            padding-bottom: 10px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
         }
 
-        .room-list {
-            flex: 1;
-            overflow-y: auto;
+        .menu-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--secondary);
         }
 
-        .room-item {
-            padding: 15px;
-            margin-bottom: 10px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
-            cursor: pointer;
-            transition: all 0.3s;
+        .menu-card p {
+            color: #ccc;
+            margin-bottom: 20px;
+            line-height: 1.6;
         }
 
-        .room-item:hover {
-            background: rgba(255, 255, 255, 0.2);
-            transform: translateX(5px);
+        /* تصميم غرف البوكر */
+        .poker-rooms {
+            margin: 50px 0;
         }
 
-        .room-item.active {
-            background: rgba(255, 215, 0, 0.3);
-            border: 1px solid #ffd700;
+        .section-title {
+            text-align: center;
+            margin-bottom: 30px;
+            position: relative;
+            padding-bottom: 15px;
         }
 
-        .room-name {
-            font-size: 1.1rem;
-            margin-bottom: 5px;
-            color: #ffd700;
+        .section-title h2 {
+            font-size: 2rem;
+            color: var(--secondary);
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: var(--secondary);
+            border-radius: 3px;
+        }
+
+        .rooms-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .room-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        .room-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border-color: var(--secondary);
+        }
+
+        .room-header {
+            padding: 20px;
+            background: rgba(10, 46, 28, 0.7);
+            text-align: center;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        .room-header h3 {
+            font-size: 1.4rem;
+            color: var(--secondary);
+        }
+
+        .room-body {
+            padding: 20px;
         }
 
         .room-info {
             display: flex;
             justify-content: space-between;
-            font-size: 0.9rem;
-            opacity: 0.8;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        .create-room-btn {
-            background: linear-gradient(to bottom, #ffd700, #ff9900);
-            color: #000;
-            border: none;
-            padding: 15px;
-            border-radius: 10px;
-            font-size: 1.1rem;
-            font-weight: bold;
-            cursor: pointer;
-            margin-top: 15px;
-            transition: all 0.3s;
-        }
-
-        .create-room-btn:hover {
-            transform: scale(1.05);
-        }
-
-        /* لوحة اللعبة الرئيسية */
-        .game-panel {
+        .room-info span {
             display: flex;
-            flex-direction: column;
-            background: rgba(0, 0, 0, 0.4);
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            align-items: center;
+            gap: 5px;
+        }
+
+        .room-info i {
+            color: var(--secondary);
+        }
+
+        .players {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .player-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: 2px solid var(--secondary);
             overflow: hidden;
-            border: 2px solid #ffd700;
+            background: linear-gradient(45deg, var(--primary), var(--dark));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
         }
 
-        .game-header {
+        .empty-seat {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: 2px dashed rgba(255, 255, 255, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(255, 255, 255, 0.3);
+        }
+
+        .room-footer {
+            padding: 15px 20px;
+            background: rgba(10, 46, 28, 0.7);
             text-align: center;
-            padding: 20px;
-            background: rgba(0, 0, 0, 0.3);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
         }
 
-        .game-title {
-            font-size: 2.2rem;
-            color: #ffd700;
-            text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-        }
-
-        .designer-credit {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            background: rgba(0, 0, 0, 0.5);
-            padding: 8px 15px;
+        /* تصميم طاولة البوكر */
+        .poker-table-section {
+            margin: 50px 0;
+            padding: 30px;
+            background: rgba(0, 0, 0, 0.2);
             border-radius: 20px;
-            font-size: 1rem;
-            color: #ffd700;
+            border: 1px solid rgba(212, 175, 55, 0.3);
         }
 
         .poker-table {
-            flex: 1;
-            padding: 30px;
+            width: 100%;
+            height: 600px;
+            background: linear-gradient(145deg, #0a5c36, #084428);
+            border-radius: 50%;
+            margin: 0 auto;
             position: relative;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            border: 15px solid var(--wood);
+            overflow: hidden;
             display: flex;
-            justify-content: center;
             align-items: center;
+            justify-content: center;
         }
 
-        .table-surface {
+        .table-inner {
             width: 90%;
-            height: 80%;
-            background: linear-gradient(to bottom, #1a472a, #0d3019);
+            height: 90%;
+            border: 2px dashed rgba(212, 175, 55, 0.5);
             border-radius: 50%;
-            border: 15px solid #8b4513;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
             position: relative;
             display: flex;
-            justify-content: center;
             align-items: center;
-        }
-
-        .table-center {
-            position: absolute;
-            width: 200px;
-            height: 200px;
-            background: rgba(0, 0, 0, 0.2);
-            border-radius: 50%;
-            display: flex;
             justify-content: center;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 10px;
-            padding: 20px;
         }
 
-        .pot-display {
-            background: rgba(0, 0, 0, 0.5);
-            padding: 15px 30px;
-            border-radius: 30px;
-            font-size: 1.5rem;
-            color: #ffd700;
-            border: 2px solid #ffd700;
-        }
-
-        .community-cards {
-            display: flex;
-            gap: 10px;
+        .pot-area {
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.4);
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-weight: bold;
+            color: var(--secondary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
-        .card-slot {
-            width: 90px;
-            height: 126px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 8px;
+        .community-cards {
             display: flex;
-            justify-content: center;
-            align-items: center;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-            border: 2px dashed rgba(255, 255, 255, 0.2);
+            gap: 15px;
+            position: absolute;
+            top: 45%;
+            left: 50%;
+            transform: translateX(-50%);
         }
 
         .card {
+            width: 90px;
+            height: 130px;
+            border-radius: 8px;
+            position: relative;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            transform-style: preserve-3d;
+            transition: transform 0.5s ease;
+        }
+
+        .card.flipped {
+            transform: rotateY(180deg);
+        }
+
+        .card-face {
+            position: absolute;
             width: 100%;
             height: 100%;
-            background: #fff;
+            backface-visibility: hidden;
             border-radius: 8px;
             display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            padding: 8px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-            position: relative;
-            color: #333;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
             font-weight: bold;
-            font-size: 1.2rem;
-            overflow: hidden;
-            transition: transform 0.3s;
         }
 
-        .card:hover {
-            transform: translateY(-10px);
+        .card-front {
+            background: white;
+            border: 1px solid #ddd;
+            transform: rotateY(180deg);
         }
 
-        .card.red {
-            color: #d40000;
+        .card-back {
+            background: linear-gradient(45deg, var(--card-red), #a00);
+            border: 3px solid white;
         }
 
-        .card.black {
-            color: #000;
-        }
-
-        .card-top, .card-bottom {
+        .player-position {
+            position: absolute;
+            width: 180px;
+            padding: 15px;
+            background: rgba(10, 30, 20, 0.8);
+            border-radius: 10px;
+            border: 2px solid var(--secondary);
             display: flex;
             flex-direction: column;
-            align-items: flex-start;
+            align-items: center;
+            gap: 10px;
         }
 
-        .card-bottom {
-            align-self: flex-end;
-            transform: rotate(180deg);
-        }
-
-        .card-center {
-            align-self: center;
-            font-size: 2rem;
-        }
-
-        .players-container {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-        }
-
-        .player {
-            position: absolute;
-            width: 200px;
-            background: rgba(0, 0, 0, 0.6);
-            padding: 15px;
-            border-radius: 15px;
-            text-align: center;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
-            border: 2px solid transparent;
-            transition: all 0.3s;
-        }
-
-        .player.active {
-            border-color: #ffd700;
-            box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
-        }
-
-        .player-name {
-            font-size: 1.1rem;
-            margin-bottom: 10px;
-            color: #ffd700;
-        }
+        .player-position:nth-child(1) { top: 20px; left: 50%; transform: translateX(-50%); }
+        .player-position:nth-child(2) { top: 50%; right: 20px; transform: translateY(-50%); }
+        .player-position:nth-child(3) { bottom: 20px; left: 50%; transform: translateX(-50%); }
+        .player-position:nth-child(4) { top: 50%; left: 20px; transform: translateY(-50%); }
 
         .player-cards {
             display: flex;
-            justify-content: center;
             gap: 5px;
-            margin-bottom: 10px;
         }
 
-        .player-stats {
+        .player-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .player-status {
             font-size: 0.9rem;
-        }
-
-        .player-chips {
-            color: #ffd700;
+            color: var(--secondary);
+            font-weight: bold;
         }
 
         .player-bet {
-            color: #ff6b6b;
-        }
-
-        .player-1 {
-            top: 5%;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-
-        .player-2 {
-            top: 50%;
-            right: 2%;
-            transform: translateY(-50%);
-        }
-
-        .player-3 {
-            bottom: 5%;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-
-        .player-4 {
-            top: 50%;
-            left: 2%;
-            transform: translateY(-50%);
-        }
-
-        .game-controls {
-            padding: 20px;
-            background: rgba(0, 0, 0, 0.3);
+            background: rgba(212, 175, 55, 0.2);
+            padding: 5px 10px;
+            border-radius: 15px;
             display: flex;
-            justify-content: center;
-            gap: 15px;
-            flex-wrap: wrap;
+            align-items: center;
+            gap: 5px;
         }
 
-        .btn {
-            padding: 12px 25px;
-            border: none;
+        /* تصميم الدردشة والتحكم */
+        .game-controls {
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .betting-controls {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            padding: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+        }
+
+        .bet-option {
+            background: rgba(212, 175, 55, 0.1);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            padding: 15px 25px;
             border-radius: 10px;
-            font-size: 1rem;
-            font-weight: bold;
             cursor: pointer;
             transition: all 0.3s ease;
-            color: #fff;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
             min-width: 100px;
         }
 
-        .btn:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
+        .bet-option:hover, .bet-option.active {
+            background: var(--secondary);
+            color: var(--dark);
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4);
         }
 
-        .btn-fold {
-            background: linear-gradient(to bottom, #ff4d4d, #cc0000);
+        .bet-option i {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
         }
 
-        .btn-check {
-            background: linear-gradient(to bottom, #4d79ff, #0039cc);
-        }
-
-        .btn-bet {
-            background: linear-gradient(to bottom, #ffcc00, #ff9900);
-        }
-
-        .btn-raise {
-            background: linear-gradient(to bottom, #00cc66, #00994d);
-        }
-
-        .btn-call {
-            background: linear-gradient(to bottom, #9933ff, #6600cc);
-        }
-
-        /* لوحة الدردشة */
-        .chat-panel {
-            background: rgba(0, 0, 0, 0.4);
-            border-radius: 20px;
+        .chat-section {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
             padding: 20px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
             display: flex;
             flex-direction: column;
-            border: 2px solid #ffd700;
+            height: 100%;
+        }
+
+        .chat-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 10px;
+        }
+
+        .chat-tab {
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .chat-tab.active {
+            background: var(--primary);
+            color: var(--secondary);
         }
 
         .chat-messages {
-            flex: 1;
+            flex-grow: 1;
             overflow-y: auto;
             margin-bottom: 15px;
             padding: 10px;
             background: rgba(0, 0, 0, 0.2);
             border-radius: 10px;
+            min-height: 200px;
         }
 
         .message {
             padding: 10px;
             margin-bottom: 10px;
-            border-radius: 10px;
-            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.05);
         }
 
-        .message .sender {
-            font-weight: bold;
-            color: #ffd700;
+        .message-header {
+            display: flex;
+            justify-content: space-between;
             margin-bottom: 5px;
+            font-size: 0.9rem;
+            color: var(--secondary);
         }
 
-        .message .text {
-            font-size: 0.95rem;
-        }
-
-        .chat-input {
+        .message-input {
             display: flex;
             gap: 10px;
         }
 
-        .chat-input input {
-            flex: 1;
-            padding: 12px;
-            border-radius: 10px;
+        .message-input input {
+            flex-grow: 1;
+            padding: 10px 15px;
+            border-radius: 20px;
             border: none;
-            background: rgba(255, 255, 255, 0.9);
-            color: #000;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
         }
 
-        .chat-input button {
-            padding: 12px 20px;
+        .message-input button {
+            background: var(--secondary);
+            color: var(--dark);
             border: none;
-            border-radius: 10px;
-            background: linear-gradient(to bottom, #4d79ff, #0039cc);
-            color: #fff;
+            border-radius: 20px;
+            padding: 10px 20px;
+            cursor: pointer;
             font-weight: bold;
-            cursor: pointer;
         }
 
-        /* مؤثرات الصوت */
-        .sound-control {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            background: rgba(0, 0, 0, 0.5);
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
+        /* تصميم الميزات الإضافية */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin: 50px 0;
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 25px;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
-            cursor: pointer;
-            z-index: 100;
+            text-align: center;
+            gap: 15px;
+            border: 1px solid rgba(212, 175, 55, 0.2);
         }
 
-        /* رسوم متحركة للبطاقات */
-        @keyframes dealCard {
-            0% { transform: scale(0.5); opacity: 0; }
-            100% { transform: scale(1); opacity: 1; }
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: rgba(212, 175, 55, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: var(--secondary);
         }
 
-        .card {
-            animation: dealCard 0.5s ease-out;
+        /* تصميم الفوتر */
+        footer {
+            background: rgba(10, 30, 20, 0.9);
+            padding: 40px 0 20px;
+            margin-top: 50px;
+            border-top: 1px solid rgba(212, 175, 55, 0.2);
         }
 
-        /* تكييف مع الشاشات الصغيرة */
-        @media (max-width: 1200px) {
-            .container {
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .footer-column h3 {
+            color: var(--secondary);
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .footer-links a:hover {
+            color: var(--secondary);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(212, 175, 55, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--secondary);
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background: var(--secondary);
+            color: var(--dark);
+            transform: translateY(-5px);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #aaa;
+        }
+
+        /* تصميم متجاوب */
+        @media (max-width: 992px) {
+            .poker-table {
+                height: 500px;
+            }
+            
+            .game-controls {
                 grid-template-columns: 1fr;
-                grid-template-rows: auto 1fr auto;
-                height: auto;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                gap: 15px;
             }
             
-            .players-container {
-                position: relative;
-                display: grid;
-                grid-template-columns: repeat(2, 1fr);
-                gap: 10px;
-                margin-top: 20px;
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
             }
             
-            .player {
-                position: static;
-                transform: none;
-                width: auto;
+            .poker-table {
+                height: 400px;
+            }
+            
+            .card {
+                width: 70px;
+                height: 100px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .menu-card, .room-card, .feature-card {
+                padding: 20px;
+            }
+            
+            .poker-table {
+                height: 300px;
+                border-width: 10px;
+            }
+            
+            .card {
+                width: 50px;
+                height: 70px;
+                font-size: 1.2rem;
+            }
+            
+            .player-position {
+                width: 140px;
+                padding: 10px;
+                font-size: 0.9rem;
             }
         }
     </style>
 </head>
 <body>
+    <!-- الهيدر -->
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <div class="logo">
+                    <i class="fas fa-diamond"></i>
+                    <span>جعفر السيد بوكر</span>
+                </div>
+                
+                <ul class="nav-links">
+                    <li><a href="#" class="active">الرئيسية</a></li>
+                    <li><a href="#">الغرف</a></li>
+                    <li><a href="#">الرهانات</a></li>
+                    <li><a href="#">المدفوعات</a></li>
+                    <li><a href="#">الدعم</a></li>
+                </ul>
+                
+                <div class="user-actions">
+                    <div class="user-profile">
+                        <div class="user-avatar">
+                            <span>ج</span>
+                        </div>
+                        <span>جعفر السيد</span>
+                    </div>
+                    <div class="balance">
+                        <i class="fas fa-coins"></i>
+                        <span>8,750.00</span>
+                    </div>
+                    <button class="btn btn-outline">
+                        <i class="fas fa-sign-out-alt"></i>
+                        خروج
+                    </button>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- المحتوى الرئيسي -->
     <div class="container">
-        <!-- لوحة الغرف -->
-        <div class="rooms-panel">
-            <h3 class="panel-title">غرف اللعب</h3>
-            <div class="room-list">
-                <div class="room-item active">
-                    <div class="room-name">الغرفة المميزة</div>
-                    <div class="room-info">
-                        <span>2/4 لاعبين</span>
-                        <span>100/200</span>
+        <!-- القائمة الرئيسية -->
+        <div class="main-menu">
+            <div class="menu-card">
+                <i class="fas fa-play-circle"></i>
+                <h3>بدء اللعب</h3>
+                <p>انضم إلى غرفة بوكر وابدأ اللعب مع لاعبين حقيقيين من حول العالم. اختر بين غرفتين أو أربعة لاعبين.</p>
+                <button class="btn btn-primary">العب الآن</button>
+            </div>
+            
+            <div class="menu-card">
+                <i class="fas fa-coins"></i>
+                <h3>شحن الرصيد</h3>
+                <p>قم بشحن حسابك باستخدام طرق دفع متعددة وآمنة. استمتع بعمليات سريعة وسهلة مع دعم على مدار الساعة.</p>
+                <button class="btn btn-primary">شحن الآن</button>
+            </div>
+            
+            <div class="menu-card">
+                <i class="fas fa-users"></i>
+                <h3>إنشاء غرفة خاصة</h3>
+                <p>أنشئ غرفتك الخاصة وادعُ أصدقائك للعب. خصص إعدادات الغرفة واختر تصميمها الفريد.</p>
+                <button class="btn btn-primary">إنشاء غرفة</button>
+            </div>
+        </div>
+        
+        <!-- غرف البوكر -->
+        <div class="poker-rooms">
+            <div class="section-title">
+                <h2>غرف البوكر المتاحة</h2>
+            </div>
+            
+            <div class="rooms-grid">
+                <!-- الغرفة 1 -->
+                <div class="room-card">
+                    <div class="room-header">
+                        <h3>الغرفة الذهبية</h3>
+                    </div>
+                    <div class="room-body">
+                        <div class="room-info">
+                            <span><i class="fas fa-users"></i> 4 لاعبين</span>
+                            <span><i class="fas fa-coins"></i> 500-5000</span>
+                        </div>
+                        <div class="players">
+                            <div class="player-avatar">
+                                <span>م</span>
+                            </div>
+                            <div class="player-avatar">
+                                <span>ع</span>
+                            </div>
+                            <div class="empty-seat">
+                                <i class="fas fa-plus"></i>
+                            </div>
+                            <div class="empty-seat">
+                                <i class="fas fa-plus"></i>
+                            </div>
+                        </div>
+                        <p>غرفة مميزة بتصميم ذهبي فاخر وموسيقى هادئة. رهانات متوسطة وتحديات مثيرة.</p>
+                    </div>
+                    <div class="room-footer">
+                        <button class="btn btn-primary">انضم الآن</button>
                     </div>
                 </div>
-                <div class="room-item">
-                    <div class="room-name">غرفة المتوسط</div>
-                    <div class="room-info">
-                        <span>3/4 لاعبين</span>
-                        <span>50/100</span>
+                
+                <!-- الغرفة 2 -->
+                <div class="room-card">
+                    <div class="room-header" style="background: rgba(52, 58, 64, 0.7);">
+                        <h3>غرفة الياقوت</h3>
+                    </div>
+                    <div class="room-body">
+                        <div class="room-info">
+                            <span><i class="fas fa-users"></i> 2 لاعبين</span>
+                            <span><i class="fas fa-coins"></i> 1000-10000</span>
+                        </div>
+                        <div class="players">
+                            <div class="player-avatar">
+                                <span>س</span>
+                            </div>
+                            <div class="empty-seat">
+                                <i class="fas fa-plus"></i>
+                            </div>
+                        </div>
+                        <p>غرفة حصرية بتصميم أزرق ياقوتي. تحديات عالية المستوى ومكافآت ضخمة للمنتصرين.</p>
+                    </div>
+                    <div class="room-footer" style="background: rgba(52, 58, 64, 0.7);">
+                        <button class="btn btn-primary">انضم الآن</button>
                     </div>
                 </div>
-                <div class="room-item">
-                    <div class="room-name">غرفة المبتدئين</div>
-                    <div class="room-info">
-                        <span>1/4 لاعبين</span>
-                        <span>10/20</span>
+                
+                <!-- الغرفة 3 -->
+                <div class="room-card">
+                    <div class="room-header" style="background: rgba(220, 53, 69, 0.7);">
+                        <h3>غرفة الروبي</h3>
                     </div>
-                </div>
-                <div class="room-item">
-                    <div class="room-name">غرفة عالية المخاطر</div>
-                    <div class="room-info">
-                        <span>4/4 لاعبين</span>
-                        <span>500/1000</span>
+                    <div class="room-body">
+                        <div class="room-info">
+                            <span><i class="fas fa-users"></i> 4 لاعبين</span>
+                            <span><i class="fas fa-coins"></i> 250-2500</span>
+                        </div>
+                        <div class="players">
+                            <div class="player-avatar">
+                                <span>ر</span>
+                            </div>
+                            <div class="player-avatar">
+                                <span>ح</span>
+                            </div>
+                            <div class="player-avatar">
+                                <span>ن</span>
+                            </div>
+                            <div class="empty-seat">
+                                <i class="fas fa-plus"></i>
+                            </div>
+                        </div>
+                        <p>غرفة نابضة بالحياة بتصميم أحمر روبي. مثالية للمبتدئين واللاعبين المتوسطين.</p>
+                    </div>
+                    <div class="room-footer" style="background: rgba(220, 53, 69, 0.7);">
+                        <button class="btn btn-primary">انضم الآن</button>
                     </div>
                 </div>
             </div>
-            <button class="create-room-btn">إنشاء غرفة جديدة</button>
         </div>
         
-        <!-- لوحة اللعبة الرئيسية -->
-        <div class="game-panel">
-            <div class="game-header">
-                <div class="designer-credit">
-                    <i class="fas fa-palette"></i> تصميم: جعفر السيد
-                </div>
-                <h1 class="game-title">بوكر VIP</h1>
+        <!-- طاولة البوكر -->
+        <div class="poker-table-section">
+            <div class="section-title">
+                <h2>طاولة البوكر الحية</h2>
             </div>
             
             <div class="poker-table">
-                <div class="table-surface">
-                    <div class="table-center">
-                        <div class="pot-display">الجائزة: 2450</div>
+                <div class="table-inner">
+                    <div class="pot-area">
+                        <i class="fas fa-coins"></i>
+                        <span>2,450 رقائق</span>
                     </div>
                     
                     <div class="community-cards">
-                        <div class="card-slot">
-                            <div class="card red">
-                                <div class="card-top">A <i class="fas fa-heart"></i></div>
-                                <div class="card-center"><i class="fas fa-heart"></i></div>
-                                <div class="card-bottom">A <i class="fas fa-heart"></i></div>
+                        <div class="card flipped">
+                            <div class="card-face card-front" style="color: var(--card-red);">♥ K</div>
+                            <div class="card-face card-back"></div>
+                        </div>
+                        <div class="card flipped">
+                            <div class="card-face card-front" style="color: var(--card-black);">♠ 9</div>
+                            <div class="card-face card-back"></div>
+                        </div>
+                        <div class="card flipped">
+                            <div class="card-face card-front" style="color: var(--card-red);">♦ A</div>
+                            <div class="card-face card-back"></div>
+                        </div>
+                        <div class="card">
+                            <div class="card-face card-front"></div>
+                            <div class="card-face card-back"></div>
+                        </div>
+                        <div class="card">
+                            <div class="card-face card-front"></div>
+                            <div class="card-face card-back"></div>
+                        </div>
+                    </div>
+                    
+                    <!-- اللاعب 1 -->
+                    <div class="player-position">
+                        <div class="player-info">
+                            <div class="user-avatar">
+                                <span>م</span>
+                            </div>
+                            <div>
+                                <div>محمد</div>
+                                <div class="player-status">دورك</div>
                             </div>
                         </div>
-                        <div class="card-slot">
-                            <div class="card black">
-                                <div class="card-top">K <i class="fas fa-spade"></i></div>
-                                <div class="card-center"><i class="fas fa-spade"></i></div>
-                                <div class="card-bottom">K <i class="fas fa-spade"></i></div>
-                            </div>
+                        <div class="player-bet">
+                            <i class="fas fa-coins"></i>
+                            <span>500</span>
                         </div>
-                        <div class="card-slot">
-                            <div class="card red">
-                                <div class="card-top">Q <i class="fas fa-diamond"></i></div>
-                                <div class="card-center"><i class="fas fa-diamond"></i></div>
-                                <div class="card-bottom">Q <i class="fas fa-diamond"></i></div>
+                        <div class="player-cards">
+                            <div class="card">
+                                <div class="card-face card-front"></div>
+                                <div class="card-face card-back"></div>
                             </div>
-                        </div>
-                        <div class="card-slot">
-                            <div class="card black">
-                                <div class="card-top">10 <i class="fas fa-club"></i></div>
-                                <div class="card-center"><i class="fas fa-club"></i></div>
-                                <div class="card-bottom">10 <i class="fas fa-club"></i></div>
-                            </div>
-                        </div>
-                        <div class="card-slot">
-                            <div class="card red">
-                                <div class="card-top">J <i class="fas fa-heart"></i></div>
-                                <div class="card-center"><i class="fas fa-heart"></i></div>
-                                <div class="card-bottom">J <i class="fas fa-heart"></i></div>
+                            <div class="card">
+                                <div class="card-face card-front"></div>
+                                <div class="card-face card-back"></div>
                             </div>
                         </div>
                     </div>
                     
-                    <div class="players-container">
-                        <div class="player player-1 active">
-                            <div class="player-name">أنت (أحمد)</div>
-                            <div class="player-cards">
-                                <div class="card-slot">
-                                    <div class="card red">
-                                        <div class="card-top">A <i class="fas fa-heart"></i></div>
-                                        <div class="card-center"><i class="fas fa-heart"></i></div>
-                                        <div class="card-bottom">A <i class="fas fa-heart"></i></div>
-                                    </div>
-                                </div>
-                                <div class="card-slot">
-                                    <div class="card black">
-                                        <div class="card-top">K <i class="fas fa-spade"></i></div>
-                                        <div class="card-center"><i class="fas fa-spade"></i></div>
-                                        <div class="card-bottom">K <i class="fas fa-spade"></i></div>
-                                    </div>
-                                </div>
+                    <!-- اللاعب 2 -->
+                    <div class="player-position">
+                        <div class="player-info">
+                            <div class="user-avatar">
+                                <span>س</span>
                             </div>
-                            <div class="player-stats">
-                                <div class="player-chips">الرصيد: 5420</div>
-                                <div class="player-bet">الرهان: 500</div>
+                            <div>
+                                <div>سارة</div>
+                                <div class="player-status">في اللعبة</div>
                             </div>
                         </div>
-                        
-                        <div class="player player-2">
-                            <div class="player-name">محمد</div>
-                            <div class="player-cards">
-                                <div class="card-slot">
-                                    <div class="card back"></div>
-                                </div>
-                                <div class="card-slot">
-                                    <div class="card back"></div>
-                                </div>
+                        <div class="player-bet">
+                            <i class="fas fa-coins"></i>
+                            <span>500</span>
+                        </div>
+                        <div class="player-cards">
+                            <div class="card">
+                                <div class="card-face card-front"></div>
+                                <div class="card-face card-back"></div>
                             </div>
-                            <div class="player-stats">
-                                <div class="player-chips">الرصيد: 3210</div>
-                                <div class="player-bet">الرهان: 500</div>
+                            <div class="card">
+                                <div class="card-face card-front"></div>
+                                <div class="card-face card-back"></div>
                             </div>
                         </div>
-                        
-                        <div class="player player-3">
-                            <div class="player-name">سارة</div>
-                            <div class="player-cards">
-                                <div class="card-slot">
-                                    <div class="card back"></div>
-                                </div>
-                                <div class="card-slot">
-                                    <div class="card back"></div>
-                                </div>
+                    </div>
+                    
+                    <!-- اللاعب 3 -->
+                    <div class="player-position">
+                        <div class="player-info">
+                            <div class="user-avatar">
+                                <span>ج</span>
                             </div>
-                            <div class="player-stats">
-                                <div class="player-chips">الرصيد: 4800</div>
-                                <div class="player-bet">الرهان: 0</div>
+                            <div>
+                                <div>جعفر</div>
+                                <div class="player-status">في اللعبة</div>
                             </div>
                         </div>
-                        
-                        <div class="player player-4">
-                            <div class="player-name">علي</div>
-                            <div class="player-cards">
-                                <div class="card-slot">
-                                    <div class="card back"></div>
-                                </div>
-                                <div class="card-slot">
-                                    <div class="card back"></div>
-                                </div>
+                        <div class="player-bet">
+                            <i class="fas fa-coins"></i>
+                            <span>500</span>
+                        </div>
+                        <div class="player-cards">
+                            <div class="card flipped">
+                                <div class="card-face card-front" style="color: var(--card-black);">♣ 10</div>
+                                <div class="card-face card-back"></div>
                             </div>
-                            <div class="player-stats">
-                                <div class="player-chips">الرصيد: 2750</div>
-                                <div class="player-bet">الرهان: 0</div>
+                            <div class="card flipped">
+                                <div class="card-face card-front" style="color: var(--card-red);">♥ 7</div>
+                                <div class="card-face card-back"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- اللاعب 4 -->
+                    <div class="player-position">
+                        <div class="player-info">
+                            <div class="user-avatar">
+                                <span>ع</span>
+                            </div>
+                            <div>
+                                <div>علي</div>
+                                <div class="player-status">انسحب</div>
+                            </div>
+                        </div>
+                        <div class="player-cards">
+                            <div class="card">
+                                <div class="card-face card-front"></div>
+                                <div class="card-face card-back"></div>
+                            </div>
+                            <div class="card">
+                                <div class="card-face card-front"></div>
+                                <div class="card-face card-back"></div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
             
+            <!-- عناصر التحكم والدردشة -->
             <div class="game-controls">
-                <button class="btn btn-fold"><i class="fas fa-times"></i> سحب</button>
-                <button class="btn btn-check"><i class="fas fa-check"></i> تمرير</button>
-                <button class="btn btn-bet"><i class="fas fa-coins"></i> رهان 100</button>
-                <button class="btn btn-raise"><i class="fas fa-arrow-up"></i> زيادة 200</button>
-                <button class="btn btn-call"><i class="fas fa-handshake"></i> مساواة 500</button>
+                <div class="betting-controls">
+                    <div class="bet-option">
+                        <i class="fas fa-times"></i>
+                        <span>انسحب</span>
+                    </div>
+                    <div class="bet-option">
+                        <i class="fas fa-check"></i>
+                        <span>تأكيد</span>
+                    </div>
+                    <div class="bet-option active">
+                        <i class="fas fa-coins"></i>
+                        <span>500</span>
+                    </div>
+                    <div class="bet-option">
+                        <i class="fas fa-coins"></i>
+                        <span>1000</span>
+                    </div>
+                    <div class="bet-option">
+                        <i class="fas fa-coins"></i>
+                        <span>1500</span>
+                    </div>
+                    <div class="bet-option">
+                        <i class="fas fa-allergies"></i>
+                        <span>كل الرقائق</span>
+                    </div>
+                </div>
+                
+                <div class="chat-section">
+                    <div class="chat-tabs">
+                        <div class="chat-tab active">الدردشة العامة</div>
+                        <div class="chat-tab">الدردشة الخاصة</div>
+                        <div class="chat-tab">الأصدقاء</div>
+                    </div>
+                    
+                    <div class="chat-messages">
+                        <div class="message">
+                            <div class="message-header">
+                                <span>محمد:</span>
+                                <span>12:05</span>
+                            </div>
+                            <div class="message-text">من يجرؤ على الرهان الأعلى؟</div>
+                        </div>
+                        
+                        <div class="message">
+                            <div class="message-header">
+                                <span>سارة:</span>
+                                <span>12:06</span>
+                            </div>
+                            <div class="message-text">أنا معك! 500 رقائق</div>
+                        </div>
+                        
+                        <div class="message">
+                            <div class="message-header">
+                                <span>جعفر السيد:</span>
+                                <span>12:06</span>
+                            </div>
+                            <div class="message-text">لنرى أوراقكم! 1000 رقائق</div>
+                        </div>
+                    </div>
+                    
+                    <div class="message-input">
+                        <input type="text" placeholder="اكتب رسالتك هنا...">
+                        <button><i class="fas fa-paper-plane"></i></button>
+                    </div>
+                </div>
             </div>
         </div>
         
-        <!-- لوحة الدردشة -->
-        <div class="chat-panel">
-            <h3 class="panel-title">دردشة الغرفة</h3>
-            <div class="chat-messages">
-                <div class="message">
-                    <div class="sender">أحمد:</div>
-                    <div class="text">هل نزيد الرهان؟</div>
+        <!-- الميزات الإضافية -->
+        <div class="section-title">
+            <h2>ميزات اللعبة</h2>
+        </div>
+        
+        <div class="features">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-language"></i>
                 </div>
-                <div class="message">
-                    <div class="sender">محمد:</div>
-                    <div class="text">أنا معك!</div>
-                </div>
-                <div class="message">
-                    <div class="sender">سارة:</div>
-                    <div class="text">سأخرج من هذه الجولة</div>
-                </div>
-                <div class="message">
-                    <div class="sender">علي:</div>
-                    <div class="text">حظًا موفقًا للجميع</div>
-                </div>
+                <h3>دعم متعدد اللغات</h3>
+                <p>اللعبة تدعم اللغتين العربية والإنجليزية، يمكنك التبديل بينهما بسهولة حسب تفضيلاتك.</p>
             </div>
-            <div class="chat-input">
-                <input type="text" placeholder="اكتب رسالتك...">
-                <button><i class="fas fa-paper-plane"></i></button>
+            
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-mobile-alt"></i>
+                </div>
+                <h3>تصميم متجاوب</h3>
+                <p>تم تصميم اللعبة لتكون متوافقة مع جميع الأجهزة من أجهزة الكمبيوتر إلى الهواتف الذكية.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <h3>أمان عالي</h3>
+                <p>نظام أمان متكامل لحماية حسابات اللاعبين والمعاملات المالية بطرق تشفير متقدمة.</p>
             </div>
         </div>
     </div>
     
-    <div class="sound-control">
-        <i class="fas fa-volume-up"></i>
-    </div>
-    
+    <!-- الفوتر -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>جعفر السيد بوكر</h3>
+                    <p>أفضل منصة بوكر عربية بتصميم احترافي ومميز. انضم إلى مجتمعنا واستمتع بتجربة لعب لا تُنسى.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>روابط سريعة</h3>
+                    <ul class="footer-links">
+                        <li><a href="#"><i class="fas fa-chevron-left"></i> الرئيسية</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-left"></i> الغرف المتاحة</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-left"></i> شحن الرصيد</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-left"></i> سحب الأرباح</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-left"></i> الدعم الفني</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>الدعم والمساعدة</h3>
+                    <ul class="footer-links">
+                        <li><a href="#"><i class="fas fa-chevron-left"></i> الأسئلة الشائعة</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-left"></i> طرق الدفع</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-left"></i> سياسة الخصوصية</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-left"></i> الشروط والأحكام</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-left"></i> اتصل بنا</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>طرق الدفع</h3>
+                    <div style="display: flex; flex-wrap: wrap; gap: 10px; margin-top: 15px;">
+                        <i class="fab fa-cc-visa fa-2x"></i>
+                        <i class="fab fa-cc-mastercard fa-2x"></i>
+                        <i class="fab fa-cc-paypal fa-2x"></i>
+                        <i class="fas fa-university fa-2x"></i>
+                        <i class="fas fa-mobile-alt fa-2x"></i>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>© 2023 جعفر السيد بوكر. جميع الحقوق محفوظة. تم التصميم والتطوير بواسطة جعفر السيد</p>
+            </div>
+        </div>
+    </footer>
+
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // مؤثرات الصوت
-            const cardSound = new Audio('https://www.soundjay.com/misc/sounds/shuffling-cards-1.mp3');
-            const chipSound = new Audio('https://www.soundjay.com/misc/sounds/chip-lay-1.mp3');
-            const winSound = new Audio('https://www.soundjay.com/misc/sounds/bell-ringing-05.mp3');
-            const soundControl = document.querySelector('.sound-control');
-            
-            let soundEnabled = true;
-            
-            soundControl.addEventListener('click', function() {
-                soundEnabled = !soundEnabled;
-                this.innerHTML = soundEnabled ? '<i class="fas fa-volume-up"></i>' : '<i class="fas fa-volume-mute"></i>';
-            });
-            
-            // محاكاة توزيع الأوراق مع الصوت
-            setTimeout(() => {
-                if (soundEnabled) cardSound.play();
-                
-                // إظهار أوراق اللاعبين
-                document.querySelectorAll('.card.back').forEach(card => {
-                    card.innerHTML = `
-                        <div class="card black">
-                            <div class="card-top">7 <i class="fas fa-club"></i></div>
-                            <div class="card-center"><i class="fas fa-club"></i></div>
-                            <div class="card-bottom">7 <i class="fas fa-club"></i></div>
-                        </div>
-                    `;
-                });
-            }, 1000);
-            
-            // تفاعل أزرار اللعب
-            document.querySelectorAll('.btn').forEach(button => {
-                button.addEventListener('click', function() {
-                    if (soundEnabled) chipSound.play();
-                    
-                    // إضافة رسالة في الدردشة
-                    const action = this.textContent.trim();
-                    const chatMessages = document.querySelector('.chat-messages');
-                    const newMessage = document.createElement('div');
-                    newMessage.className = 'message';
-                    newMessage.innerHTML = `
-                        <div class="sender">أنت:</div>
-                        <div class="text">${action}</div>
-                    `;
-                    chatMessages.appendChild(newMessage);
-                    chatMessages.scrollTop = chatMessages.scrollHeight;
-                });
-            });
-            
-            // تفاعل إرسال الدردشة
-            document.querySelector('.chat-input button').addEventListener('click', function() {
-                const input = document.querySelector('.chat-input input');
-                const message = input.value.trim();
-                
-                if (message) {
-                    const chatMessages = document.querySelector('.chat-messages');
-                    const newMessage = document.createElement('div');
-                    newMessage.className = 'message';
-                    newMessage.innerHTML = `
-                        <div class="sender">أنت:</div>
-                        <div class="text">${message}</div>
-                    `;
-                    chatMessages.appendChild(newMessage);
-                    chatMessages.scrollTop = chatMessages.scrollHeight;
-                    
-                    input.value = '';
+        // تفعيل البطاقات عند النقر
+        document.querySelectorAll('.card').forEach(card => {
+            card.addEventListener('click', function() {
+                if (!this.classList.contains('flipped')) {
+                    this.classList.add('flipped');
                 }
             });
-            
-            // تفاعل إدخال الدردشة مع زر Enter
-            document.querySelector('.chat-input input').addEventListener('keypress', function(e) {
-                if (e.key === 'Enter') {
-                    document.querySelector('.chat-input button').click();
-                }
-            });
-            
-            // تفاعل اختيار الغرفة
-            document.querySelectorAll('.room-item').forEach(item => {
-                item.addEventListener('click', function() {
-                    document.querySelectorAll('.room-item').forEach(i => i.classList.remove('active'));
-                    this.classList.add('active');
-                    
-                    // تغيير عدد اللاعبين بناءً على الغرفة
-                    const players = this.querySelector('.room-info span:first-child').textContent;
-                    const playersCount = parseInt(players.split('/')[0]);
-                    
-                    // إظهار/إخفاء اللاعبين بناءً على الغرفة
-                    document.querySelectorAll('.player').forEach((player, index) => {
-                        if (index < playersCount) {
-                            player.style.display = 'block';
-                        } else {
-                            player.style.display = 'none';
-                        }
-                    });
-                    
-                    if (soundEnabled) chipSound.play();
+        });
+        
+        // تفعيل خيارات الرهان
+        document.querySelectorAll('.bet-option').forEach(option => {
+            option.addEventListener('click', function() {
+                document.querySelectorAll('.bet-option').forEach(opt => {
+                    opt.classList.remove('active');
                 });
+                this.classList.add('active');
             });
-            
-            // محاكاة فوز أحد اللاعبين
-            setTimeout(() => {
-                if (soundEnabled) winSound.play();
-                
-                const chatMessages = document.querySelector('.chat-messages');
-                const newMessage = document.createElement('div');
-                newMessage.className = 'message';
-                newMessage.innerHTML = `
-                    <div class="sender">النظام:</div>
-                    <div class="text" style="color:#ffd700;">أحمد فاز بالجائزة الكبرى! 2450 رقاقة</div>
-                `;
-                chatMessages.appendChild(newMessage);
-                chatMessages.scrollTop = chatMessages.scrollHeight;
-                
-                // تمييز اللاعب الفائز
-                document.querySelector('.player-1').style.borderColor = '#ffd700';
-                document.querySelector('.player-1').style.boxShadow = '0 0 25px rgba(255, 215, 0, 0.8)';
-            }, 8000);
+        });
+        
+        // تفعيل تبويبات الدردشة
+        document.querySelectorAll('.chat-tab').forEach(tab => {
+            tab.addEventListener('click', function() {
+                document.querySelectorAll('.chat-tab').forEach(t => {
+                    t.classList.remove('active');
+                });
+                this.classList.add('active');
+            });
+        });
+        
+        // محاكاة صوت عند النقر على الأزرار
+        document.querySelectorAll('button, .bet-option, .room-card').forEach(element => {
+            element.addEventListener('click', function() {
+                const audio = new Audio('https://www.soundjay.com/buttons/sounds/button-09.mp3');
+                audio.volume = 0.3;
+                audio.play().catch(e => console.log("Audio play failed:", e));
+            });
         });
     </script>
 </body>
